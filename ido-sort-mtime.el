@@ -2,7 +2,7 @@
 
 ;; Copyright (C) 2013 Paweł Kraśnicki
 
-;; Author: Paweł Kraśnicki
+;; Author: Paweł Kraśnicki <dev@pkkm.eu>
 ;; Created: 24 Apr 2013
 ;; Version: 0.1
 ;; Keywords: convenience, files
