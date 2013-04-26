@@ -22,7 +22,7 @@
 
 ;;; Commentary:
 
-;; Minor mode for displaying most recently modified files at the beginning of Ido's file list.
+;; Display recently modified files at the beginning of Ido's file list.
 ;;
 ;; To activate, add the following lines to ~/.emacs:
 ;;   (require 'ido-sort-mtime)
