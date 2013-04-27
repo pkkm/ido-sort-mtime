@@ -24,7 +24,7 @@
 
 ;; Display recently modified files at the beginning of Ido's file list.
 ;;
-;; To activate after installing, add the following lines to ~/.emacs:
+;; To activate after installing, add to ~/.emacs:
 ;;   (ido-sort-mtime-mode 1)
 ;;
 ;; To put TRAMP files before local ones, use:
