@@ -24,8 +24,7 @@
 
 ;; Display recently modified files at the beginning of Ido's file list.
 ;;
-;; To activate, add the following lines to ~/.emacs:
-;;   (require 'ido-sort-mtime)
+;; To activate after installing, add the following lines to ~/.emacs:
 ;;   (ido-sort-mtime-mode 1)
 ;;
 ;; To put TRAMP files before local ones, use:
@@ -37,6 +36,7 @@
 
 (require 'ido)
 
+;;;###autoload
 (defcustom ido-sort-mtime-tramp-files-at-end t
   "Non-nil causes files handled by TRAMP to appear at the end of the file list.
 Nil causes them to appear at the beginning.
@@ -44,6 +44,7 @@ Nil causes them to appear at the beginning.
   :type 'boolean
   :group 'ido-sort-mtime)
 
+;;;###autoload
 (define-minor-mode ido-sort-mtime-mode
   "Sort files in Ido's file list by modification time."
   nil nil nil :global t
