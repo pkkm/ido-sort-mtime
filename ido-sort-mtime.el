@@ -4,7 +4,7 @@
 
 ;; Author: Paweł Kraśnicki <dev@pkkm.eu>
 ;; Created: 24 Apr 2013
-;; Version: 0.1
+;; Version: 0.2
 ;; Keywords: convenience, files
 
 ;; This program is free software; you can redistribute it and/or modify
