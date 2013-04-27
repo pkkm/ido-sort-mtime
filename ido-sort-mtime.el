@@ -28,7 +28,8 @@
 ;;   (ido-sort-mtime-mode 1)
 ;;
 ;; To put TRAMP files before local ones, use:
-;;   (setq ido-sort-mtime-tramp-files-at-end t)
+;;   (setq ido-sort-mtime-tramp-files-at-end nil)
+;; (Checking modification time for TRAMP files is not yet supported.)
 ;;
 ;; See also: M-x customize-group RET ido-sort-mtime RET
 
