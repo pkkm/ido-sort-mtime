@@ -7,7 +7,7 @@ To activate after installing, add to ~/.emacs:
 
 	(ido-sort-mtime-mode 1)
 
-To put TRAMP files before local ones, use:
+To display TRAMP files before local ones, use:
 
 	(setq ido-sort-mtime-tramp-files-at-end nil)
 
