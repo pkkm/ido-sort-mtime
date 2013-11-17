@@ -56,24 +56,6 @@ Nil causes them to appear at the beginning.
     (remove-hook 'ido-make-file-list-hook 'ido-sort-mtime--sort)
     (remove-hook 'ido-make-dir-list-hook 'ido-sort-mtime--sort)))
 
-(defun ido-sort-mtime--file-modtime (file)
-  "Get the last modification time of FILE.
-If FILE cannot be read, return nil."
-  (let ((attributes (file-attributes file)))
-    (if attributes
-        (nth 5 attributes)
-      nil)))
-
-(defun ido-sort-mtime--file-modified-later-p (file-a file-b)
-  "Return t if FILE-A was modified later than FILE-B.
-If FILE-B cannot be read, return t. If FILE-A cannot be read, nil."
-  (let ((modtime-a (ido-sort-mtime--file-modtime file-a))
-        (modtime-b (ido-sort-mtime--file-modtime file-b)))
-    (cond
-     ((not modtime-b) t)
-     ((not modtime-a) nil)
-     (t (time-less-p modtime-b modtime-a)))))
-
 (defun ido-sort-mtime--sort ()
   "Sort Ido's file list by modification time (most recent first).
 Display TRAMP files after or before local files, depending on `ido-sort-mtime-tramp-files-at-end`."
@@ -90,9 +72,8 @@ Display TRAMP files after or before local files, depending on `ido-sort-mtime-tr
                   ido-sort-mtime-tramp-files-at-end)
 
                  ;; Local files: display the most recently modified first.
-                 (t (ido-sort-mtime--file-modified-later-p
-                     (expand-file-name a ido-current-directory)
-                     (expand-file-name b ido-current-directory))))))))
+                 (t (file-newer-than-file-p (expand-file-name a ido-current-directory)
+                                            (expand-file-name b ido-current-directory))))))))
 
 (provide 'ido-sort-mtime)
 ;;; ido-sort-mtime.el ends here.
