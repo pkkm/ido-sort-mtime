@@ -58,14 +58,14 @@ Nil causes them to appear at the beginning.
 
 (defun ido-sort-mtime--sort ()
   "Sort Ido's file list by modification time (most recent first).
-Display TRAMP files after or before local files, depending on `ido-sort-mtime-tramp-files-at-end`."
+Display TRAMP files after or before local files, depending on `ido-sort-mtime-tramp-files-at-end'."
   (setq ido-temp-list
         (sort ido-temp-list
               (lambda (a b)
                 (cond
-                 ;; TRAMP files: don't check mtime, display at the end (after local files).
-                 ;; They will be sorted alphabetically (because `ido-temp-list` is sorted to start with).
-                 ;; `concat` instead of `expand-file-name`, because the latter will try to access the file.
+                 ;; TRAMP files: don't check mtime, instead use `ido-sort-mtime-tramp-files-at-end'.
+                 ;; If it's nil, the files will be sorted alphabetically (because `ido-temp-list' is sorted to start with).
+                 ;; `concat' instead of `expand-file-name', because the latter will try to access the file.
                  ((string-match tramp-file-name-regexp (concat ido-current-directory a))
                   (not ido-sort-mtime-tramp-files-at-end))
                  ((string-match tramp-file-name-regexp (concat ido-current-directory b))
