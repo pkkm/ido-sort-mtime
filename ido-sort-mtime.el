@@ -1,11 +1,11 @@
 ;;; ido-sort-mtime.el --- Sort Ido's file list by modification time
 
-;; Copyright (C) 2013 Paweł Kraśnicki
-
-;; Author: Paweł Kraśnicki <dev@pkkm.eu>
+;; Author: Paweł Kraśnicki
 ;; Created: 24 Apr 2013
-;; Version: 0.3
+;; Version: 0.4
 ;; Keywords: convenience, files
+
+;; Copyright 2013, 2017 Paweł Kraśnicki
 
 ;; This program is free software; you can redistribute it and/or modify
 ;; it under the terms of the GNU General Public License as published by
@@ -24,12 +24,12 @@
 
 ;; Display recently modified files at the beginning of Ido's file list.
 ;;
-;; To activate after installing, add to ~/.emacs:
+;; To activate after installing, add to ~/.emacs.d/init.el:
 ;;   (ido-sort-mtime-mode 1)
 ;;
 ;; To display TRAMP files before local ones, use:
 ;;   (setq ido-sort-mtime-tramp-files-at-end nil)
-;; (Checking modification time for TRAMP files is not yet supported.)
+;; (Checking modification time for TRAMP files is not supported.)
 ;;
 ;; To display . at the beginning of the list, use:
 ;;   (setq ido-sort-mtime-dot-at-beginning t)
@@ -43,7 +43,7 @@
 (defcustom ido-sort-mtime-tramp-files-at-end t
   "Non-nil causes files handled by TRAMP to appear at the end of the file list.
 Nil causes them to appear at the beginning.
-(Checking modification time for TRAMP files is not yet supported.)"
+(Checking modification time for TRAMP files is not supported.)"
   :type 'boolean
   :group 'ido-sort-mtime)
 

@@ -5,11 +5,11 @@ Emacs minor mode that displays recently modified files at the beginning of Ido's
 
 To activate after installing, add to ~/.emacs:
 
-	(ido-sort-mtime-mode 1)
+    (ido-sort-mtime-mode 1)
 
 To display TRAMP files before local ones, use:
 
-	(setq ido-sort-mtime-tramp-files-at-end nil)
+    (setq ido-sort-mtime-tramp-files-at-end nil)
 
 (Checking modification time for TRAMP files is not supported.)
 
