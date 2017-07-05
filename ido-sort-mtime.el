@@ -31,6 +31,9 @@
 ;;   (setq ido-sort-mtime-tramp-files-at-end nil)
 ;; (Checking modification time for TRAMP files is not yet supported.)
 ;;
+;; To display . at the beginning of the list, use:
+;;   (setq ido-sort-mtime-dot-at-beginning t)
+;;
 ;; See also: M-x customize-group RET ido-sort-mtime RET
 
 ;;; Code:
@@ -41,6 +44,12 @@
   "Non-nil causes files handled by TRAMP to appear at the end of the file list.
 Nil causes them to appear at the beginning.
 (Checking modification time for TRAMP files is not yet supported.)"
+  :type 'boolean
+  :group 'ido-sort-mtime)
+
+(defcustom ido-sort-mtime-dot-at-beginning nil
+  "Non-nil causes . to always be at the beginning of the list.
+If you want Ido to show . even in file mode, see `ido-show-dot-for-dired'."
   :type 'boolean
   :group 'ido-sort-mtime)
 
@@ -62,6 +71,12 @@ Display TRAMP files after or before local files, depending on `ido-sort-mtime-tr
         (sort ido-temp-list
               (lambda (a b)
                 (cond
+                 ;; Ensure . is at the beginning if `ido-sort-mtime-dot-at-beginning' is non-nil.
+                 ((and ido-sort-mtime-dot-at-beginning (string= a "."))
+                  t)
+                 ((and ido-sort-mtime-dot-at-beginning (string= b "."))
+                  nil)
+
                  ;; TRAMP files: don't check mtime, instead use `ido-sort-mtime-tramp-files-at-end'.
                  ;; If it's nil, the files will be sorted alphabetically (because `ido-temp-list' is sorted to start with).
                  ;; `concat' instead of `expand-file-name', because the latter will try to access the file.
