@@ -37,7 +37,6 @@
 
 (require 'ido)
 
-;;;###autoload
 (defcustom ido-sort-mtime-tramp-files-at-end t
   "Non-nil causes files handled by TRAMP to appear at the end of the file list.
 Nil causes them to appear at the beginning.
