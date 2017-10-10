@@ -3,7 +3,7 @@ ido-sort-mtime
 
 Emacs minor mode that displays recently modified files at the beginning of Ido's file list.
 
-To activate after installing, add to ~/.emacs:
+To activate after installing, add to `~/.emacs`:
 
     (ido-sort-mtime-mode 1)
 
@@ -13,7 +13,7 @@ To display TRAMP files before local ones, use:
 
 (Checking modification time for TRAMP files is not supported.)
 
-To display . at the beginning of the list, use:
+To display `.` at the beginning of the list, use:
 
     (setq ido-sort-mtime-dot-at-beginning t)
 
