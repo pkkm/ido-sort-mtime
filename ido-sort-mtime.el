@@ -2,7 +2,7 @@
 
 ;; Author: Paweł Kraśnicki
 ;; Created: 24 Apr 2013
-;; Version: 0.4
+;; Version: 0.5
 ;; Keywords: convenience, files
 
 ;; Copyright 2013, 2017 Paweł Kraśnicki
