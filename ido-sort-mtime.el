@@ -43,6 +43,13 @@ If you want Ido to show . even in file mode, see `ido-show-dot-for-dired'."
   :type 'boolean
   :group 'ido-sort-mtime)
 
+(defcustom ido-sort-mtime-limit nil
+  "If the list of files/directories has more entries than this number, don't
+sort it by modification time. nil means no limit."
+  :type '(choice (integer :tag "Number of files")
+                 (const :tag "No limit" nil))
+  :group 'ido-sort-mtime)
+
 ;;;###autoload
 (define-minor-mode ido-sort-mtime-mode
   "Sort files in Ido's file list by modification time."
@@ -55,29 +62,33 @@ If you want Ido to show . even in file mode, see `ido-show-dot-for-dired'."
     (remove-hook 'ido-make-dir-list-hook 'ido-sort-mtime--sort)))
 
 (defun ido-sort-mtime--sort ()
-  "Sort Ido's file list by modification time (most recent first).
-Display TRAMP files after or before local files, depending on `ido-sort-mtime-tramp-files-at-end'."
-  (setq ido-temp-list
-        (sort ido-temp-list
-              (lambda (a b)
-                (cond
-                 ;; Ensure . is at the beginning if `ido-sort-mtime-dot-at-beginning' is non-nil.
-                 ((and ido-sort-mtime-dot-at-beginning (string= a "."))
-                  t)
-                 ((and ido-sort-mtime-dot-at-beginning (string= b "."))
-                  nil)
+  "Sort Ido's file list by modification time (most recent first)."
+  (unless (and ido-sort-mtime-limit
+               (> (length ido-temp-list) ido-sort-mtime-limit))
+    (setq ido-temp-list (sort ido-temp-list #'ido-sort-mtime--compare))))
 
-                 ;; TRAMP files: don't check mtime, instead use `ido-sort-mtime-tramp-files-at-end'.
-                 ;; If it's nil, the files will be sorted alphabetically (because `ido-temp-list' is sorted to start with).
-                 ;; `concat' instead of `expand-file-name', because the latter will try to access the file.
-                 ((string-match tramp-file-name-regexp (concat ido-current-directory a))
-                  (not ido-sort-mtime-tramp-files-at-end))
-                 ((string-match tramp-file-name-regexp (concat ido-current-directory b))
-                  ido-sort-mtime-tramp-files-at-end)
+(defun ido-sort-mtime--compare (a b)
+  (cond
+   ;; Ensure . is at the beginning if `ido-sort-mtime-dot-at-beginning' is
+   ;; non-nil.
+   ((and ido-sort-mtime-dot-at-beginning (string= a "."))
+    t)
+   ((and ido-sort-mtime-dot-at-beginning (string= b "."))
+    nil)
 
-                 ;; Local files: display the most recently modified first.
-                 (t (file-newer-than-file-p (expand-file-name a ido-current-directory)
-                                            (expand-file-name b ido-current-directory))))))))
+   ;; TRAMP files: don't check mtime, instead use
+   ;; `ido-sort-mtime-tramp-files-at-end'. If it's nil, the files will be sorted
+   ;; alphabetically (because `ido-temp-list' is sorted to start with). Use
+   ;; `concat' instead of `expand-file-name' because the latter will try to
+   ;; access the file.
+   ((string-match tramp-file-name-regexp (concat ido-current-directory a))
+    (not ido-sort-mtime-tramp-files-at-end))
+   ((string-match tramp-file-name-regexp (concat ido-current-directory b))
+    ido-sort-mtime-tramp-files-at-end)
+
+   ;; Local files: display the most recently modified first.
+   (t (file-newer-than-file-p (expand-file-name a ido-current-directory)
+                              (expand-file-name b ido-current-directory)))))
 
 (provide 'ido-sort-mtime)
 ;;; ido-sort-mtime.el ends here.
